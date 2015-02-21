@@ -71,4 +71,7 @@ tests/integration/files/conf/grains
 # ignore the local root
 /root/**
 
+# Ignore file cache created by jinja tests
+tests/unit/templates/roots
+
 update.sh

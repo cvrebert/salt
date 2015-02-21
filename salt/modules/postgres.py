@@ -26,13 +26,12 @@ Module to provide Postgres compatibility to salt.
 # Import python libs
 from __future__ import absolute_import
 import datetime
-import distutils.version  # pylint: disable=E0611
+import distutils.version  # pylint: disable=import-error,no-name-in-module
 import logging
 import StringIO
 import hashlib
 import os
 import tempfile
-from salt.ext.six.moves import zip  # pylint: disable=W0622
 try:
     import pipes
     import csv
@@ -42,7 +41,11 @@ except ImportError:
 
 # Import salt libs
 import salt.utils
-from salt.ext.six import string_types
+
+# Import 3rd-party libs
+import salt.ext.six as six
+from salt.ext.six.moves import zip  # pylint: disable=import-error,redefined-builtin
+
 
 log = logging.getLogger(__name__)
 
@@ -380,7 +383,7 @@ def db_create(name,
         'TABLESPACE': tablespace,
     }
     with_chunks = []
-    for key, value in with_args.items():
+    for key, value in six.iteritems(with_args):
         if value is not None:
             with_chunks += [key, '=', value]
     # Build a final query
@@ -667,14 +670,14 @@ def _role_cmd_args(name,
         # first is passwd set
         # second is for handling NOPASSWD
         and (
-            isinstance(rolepassword, string_types) and bool(rolepassword)
+            isinstance(rolepassword, six.string_types) and bool(rolepassword)
         )
         or (
             isinstance(rolepassword, bool)
         )
     ):
         skip_passwd = True
-    if isinstance(rolepassword, string_types) and bool(rolepassword):
+    if isinstance(rolepassword, six.string_types) and bool(rolepassword):
         escaped_password = '{0!r}'.format(
             _maybe_encrypt_password(name,
                                     rolepassword.replace('\'', '\'\''),

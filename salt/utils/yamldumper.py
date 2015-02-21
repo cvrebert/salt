@@ -38,7 +38,7 @@ class SafeOrderedDumper(SafeDumper):  # pylint: disable=W0232
 
 
 def represent_ordereddict(dumper, data):
-    return dumper.represent_dict(data.items())
+    return dumper.represent_dict(list(data.items()))
 
 
 OrderedDumper.add_representer(OrderedDict, represent_ordereddict)  # pylint: disable=E1101

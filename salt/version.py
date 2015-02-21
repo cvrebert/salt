@@ -3,19 +3,23 @@
 Set up the version of Salt
 '''
 
+# pylint: disable=incompatible-py3-code
+
 # Import python libs
 from __future__ import absolute_import, print_function
 import re
 import sys
 
 # Don't rely on external packages in this module since it's used at install time
+# pylint: disable=invalid-name,redefined-builtin
 if sys.version_info[0] == 3:
     MAX_SIZE = sys.maxsize
     string_types = (str,)
 else:
     MAX_SIZE = sys.maxint
     string_types = (basestring,)
-    from itertools import imap as map  # pylint: disable=W0622
+    from itertools import imap as map
+# pylint: enable=invalid-name,redefined-builtin
 
 # ----- ATTENTION --------------------------------------------------------------------------------------------------->
 #
@@ -186,9 +190,9 @@ class SaltStackVersion(object):
         # <---- Please refrain from fixing PEP-8 E203 and E265 -------------------------------------------------------
     }
 
-    LNAMES = dict((k.lower(), v) for (k, v) in NAMES.items())
-    VNAMES = dict((v, k) for (k, v) in NAMES.items())
-    RMATCH = dict((v[:2], k) for (k, v) in NAMES.items())
+    LNAMES = dict((k.lower(), v) for (k, v) in iter(NAMES.items()))
+    VNAMES = dict((v, k) for (k, v) in iter(NAMES.items()))
+    RMATCH = dict((v[:2], k) for (k, v) in iter(NAMES.items()))
 
     def __init__(self,              # pylint: disable=C0103
                  major,
