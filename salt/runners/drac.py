@@ -99,9 +99,9 @@ def pxe(hostname, timeout=20):
             (stdin, stdout, stderr) = client.exec_command(cmd)  # pylint: disable=E1101
 
         if 'successful' in stdout.readline():
-            log.info('Executing command: {0}'.format(cmd))
+            log.info('Executing command: {0}'.format(cmd))  # pylint: disable=W0631
         else:
-            log.error('Unable to execute: {0}'.format(cmd))
+            log.error('Unable to execute: {0}'.format(cmd))  # pylint: disable=W0631
             return False
 
     return True

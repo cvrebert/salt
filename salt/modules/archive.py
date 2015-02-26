@@ -514,7 +514,7 @@ def unzip(zip_file, dest, excludes=None, template=None, runas=None):
             files = zfile.namelist()
 
             if isinstance(excludes, string_types):
-                excludes = [x.strip() for x in excludes.split(',')]
+                excludes = [x.strip() for x in excludes.split(',')]  # pylint: disable=E1101
             elif isinstance(excludes, (float, integer_types)):
                 excludes = [str(excludes)]
 
